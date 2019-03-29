@@ -1,45 +1,72 @@
 改进PHPixie插件，使无法使用composer安装该插件的mvc框架使用此插件进行图片处理。
+
 改进功能如下：
 1.强制将图片调整为指定尺寸，不再保持原有宽高比
+
 2.增加文字水印自动换行
+
 3.图片水印设置水印透明度
-<?php
+
+
 
 #引入文件
+
 require "PHPixie/Image.php";  
 
 
 #实例化一个图片操作对象
+
 $image = new \PHPixie\Image();
 
+
 #创建图像
+
 // 创建一个 宽100 高200 的透明白色图片
+
 $img = $image->create(100, 200);
 
+
 //创建一个款宽100 ，高200，红色  透明度 0.5的图片
+
 $img = $image->create(100, 200, 0xff0000, 0.5);
 
+
 #读取图像 
+
 //直接从文件读取
+
 $img = $image->read('./2.jpg');
 
+
 // 通过file_get_contents 读取
+
 $data = file_get_contents('./2.jpg');
+
 $img = $image->load($data);
 
 
+
 //#保存图像
+
 $img->save('pixie.png');
 
+
 //手动指定格式和图片质量
+
 $img->save('pixie.jpg', 'jpg', 90);
 
+
 #图像微缩
+
 // 宽400 高等比例调整
+
 $img->resize(400);
 
+
 // 高200 宽等比例调整
+
 $img->resize(null, 200);
+
 
 // 最小尺寸（2：1）
 $img->resize(200, 100);
