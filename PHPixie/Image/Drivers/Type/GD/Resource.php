@@ -128,6 +128,13 @@ class Resource extends \PHPixie\Image\Drivers\Driver\Resource
         return $this;
     }
 
+    public function show() {
+        header("Content-type:image/png");       
+        imagesavealpha($this->image, true);
+        imagepng($this->image);
+        
+    }
+
     public function destroy() {
         if($this->image !== null) {
             imagedestroy($this->image);

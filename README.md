@@ -55,6 +55,8 @@ $img->save('pixie.png');
 
 $img->save('pixie.jpg', 'jpg', 90);
 
+//输出图像
+$img->show();
 
 #图像微缩
 
