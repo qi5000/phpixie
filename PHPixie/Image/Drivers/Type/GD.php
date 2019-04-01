@@ -20,25 +20,38 @@ class GD implements \PHPixie\Image\Drivers\Driver
         return $resource;
     }
 
-    public function read($file) {
-        $size = getimagesize($file);
-        if (!$size)         
-            exit("File is not a valid image");
+    public function read($file,$base64=false) {
+        
+        if($base64){
+            if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $file, $result)){
+                $image = imagecreatefromstring(base64_decode(str_replace($result[1], '', $file)));
+                $size[0]=imagesx($image);                              
+                $size[1]=imagesy($image);                                             
+            }else{
+                exit("File is not a valid base64");
+            }
+        }else{
+            $size = getimagesize($file);
+            
+            if (!$size)         
+                exit("File is not a valid image");
 
-        switch($size["mime"]) {
-            case "image/png":
-                $image = imagecreatefrompng($file);
-                break;
-            case "image/jpeg":
-                $image = imagecreatefromjpeg($file);
-                break;
-            case "image/gif":
-                $image = imagecreatefromgif($file);
-                break;
-            default:
-                throw new \PHPixie\Image\Exception("File is not a valid image");
-                break;
+            switch($size["mime"]) {
+                case "image/png":
+                    $image = imagecreatefrompng($file);
+                    break;
+                case "image/jpeg":
+                    $image = imagecreatefromjpeg($file);
+                    break;
+                case "image/gif":
+                    $image = imagecreatefromgif($file);
+                    break;
+                default:
+                    throw new \PHPixie\Image\Exception("File is not a valid image");
+                    break;
+            }
         }
+        
 
         imagealphablending($image, false);
         return $this->buildResource($image, $size[0], $size[1]);

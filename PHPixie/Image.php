@@ -35,10 +35,10 @@ class Image
      *
      * @return  \PHPixie\Image\Resource Initialized Image
      */
-    public function read($file, $driver = null)
+    public function read($file,$base64=false, $driver = null)
     {
         $driver = $this->driver($driver);
-        return $driver->read($file);
+        return $driver->read($file,$base64);
     }
 
     /**
