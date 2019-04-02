@@ -147,5 +147,5 @@ $img = $image->load($data);
 $img->resize(500,200,null,true)->save('upload.png');  //处理图像  所有连贯操作均可用
 
 //将图片保存为base64数据 (带 "data:image/png;base64," 头)
-//$result->save_string()
+//$result=$img->save_string()
 ?>
