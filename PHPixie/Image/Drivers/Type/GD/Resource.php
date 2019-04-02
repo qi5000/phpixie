@@ -131,9 +131,19 @@ class Resource extends \PHPixie\Image\Drivers\Driver\Resource
     public function show() {
         header("Content-type:image/png");       
         imagesavealpha($this->image, true);
-        imagepng($this->image);
-        
+        imagepng($this->image);       
     }
+
+    public function save_string() { 
+        ob_start();     
+        imagesavealpha($this->image, true);
+        imagepng($this->image);
+        $fileContent = ob_get_contents();
+        ob_end_clean();
+        $im='data:image/png;base64,'.base64_encode($fileContent);
+        return $im;       
+    }
+
 
     public function destroy() {
         if($this->image !== null) {

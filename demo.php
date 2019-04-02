@@ -145,4 +145,7 @@ $image = new \PHPixie\Image();
 $data = file_get_contents($_FILES['file']['tmp_name']);   //使用file_get_content 直接将临时文件读取
 $img = $image->load($data);
 $img->resize(500,200,null,true)->save('upload.png');  //处理图像  所有连贯操作均可用
+
+//将图片保存为base64数据 (带 "data:image/png;base64," 头)
+//$result->save_string()
 ?>
